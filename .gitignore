@@ -1,0 +1,32 @@
+# === BACKEND (Java / Eclipse / Maven) ===
+target/
+*.class
+*.log
+*.jar
+*.war
+*.iml
+
+# Eclipse project files
+.classpath
+.project
+.settings/
+.sts4-cache
+.apt_generated
+.factorypath
+
+# Maven wrapper
+.mvn/
+mvnw
+mvnw.cmd
+
+# === FRONTEND (VSCode / Node.js) ===
+node_modules/
+dist/
+build/
+
+# VSCode workspace settings
+.vscode/
+
+# === Sistema operativo ===
+.DS_Store
+Thumbs.db
