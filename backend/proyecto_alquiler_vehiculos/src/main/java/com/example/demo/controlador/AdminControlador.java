@@ -4,12 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.demo.servicio.VehiculoServicio;
+import com.example.demo.servicio.AdminServicio;
+import com.example.demo.servicio.UsuarioServicio;
 
 @RestController
-@RequestMapping("/vehiculo")
-public class VehiculoControlador {
+@RequestMapping("/admin")
+public class AdminControlador {
 	 @Autowired
-	    private VehiculoServicio servicio;
+	    private AdminServicio servicio;
 
 }
