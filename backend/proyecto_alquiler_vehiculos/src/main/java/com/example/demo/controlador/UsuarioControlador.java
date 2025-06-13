@@ -13,25 +13,23 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.AlquilerVehiculosApplication;
 import com.example.demo.modelo.Usuario;
 import com.example.demo.repositorio.RepositorioUsuario;
+import com.example.demo.servicio.UsuarioServicio;
 
 @RestController
-
 @RequestMapping("/usuario")
-
 public class UsuarioControlador {
- 
-	    private final AlquilerVehiculosApplication alquilerVehiculosApplication;
-        	
-		@Autowired
-		private RepositorioUsuario repositorio;
-		
-		UsuarioControlador(AlquilerVehiculosApplication alquilerVehiculosApplication) {
-	        this.alquilerVehiculosApplication = alquilerVehiculosApplication;
-	    }
-		
-		@PostMapping("/guardarUsuario")
-		public Usuario guardarUsuario(@RequestBody Usuario u){
-		    return this.repositorio.save(u);
-		}
 
+    @Autowired
+    private UsuarioServicio servicio;
+
+    @PostMapping("/guardarUsuario")
+    public Usuario guardarUsuario(@RequestBody Usuario usuario) {
+        return servicio.guardarUsuario(usuario);
+    }
+
+    @GetMapping("/listarUsuarios")
+    public List<Usuario> listarUsuarios() {
+        return servicio.obtenerTodos();
+    }
 }
+
