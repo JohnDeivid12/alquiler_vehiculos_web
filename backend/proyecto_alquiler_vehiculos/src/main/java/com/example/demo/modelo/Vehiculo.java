@@ -20,23 +20,23 @@ public class Vehiculo {
     private String color;
 	
 	@Column(name = "valor_alquiler_vehiculo", nullable = false)
-    private Double valor_alquiler_vehiculo;
+    private Double valorAlquilerVehiculo;
 	
 	@Column(name = "estado_vehiculo", length = 30, nullable = false)
-    private String estado_vehiculo;
+    private String estadoVehiculo;
 
 	public Vehiculo() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Vehiculo(String placa, String tipo, String color, Double valor_alquiler_vehiculo, String estado_vehiculo) {
+	public Vehiculo(String placa, String tipo, String color, Double valorAlquilerVehiculo, String estadoVehiculo) {
 		super();
 		this.placa = placa;
 		this.tipo = tipo;
 		this.color = color;
-		this.valor_alquiler_vehiculo = valor_alquiler_vehiculo;
-		this.estado_vehiculo = estado_vehiculo;
+		this.valorAlquilerVehiculo = valorAlquilerVehiculo;
+		this.estadoVehiculo = estadoVehiculo;
 	}
 
 	public String getPlaca() {
@@ -64,19 +64,19 @@ public class Vehiculo {
 	}
 
 	public Double getValor_alquiler_vehiculo() {
-		return valor_alquiler_vehiculo;
+		return valorAlquilerVehiculo;
 	}
 
-	public void setValor_alquiler_vehiculo(Double valor_alquiler_vehiculo) {
-		this.valor_alquiler_vehiculo = valor_alquiler_vehiculo;
+	public void setValorAlquilerVehiculo(Double valorAlquilerVehiculo) {
+		this.valorAlquilerVehiculo = valorAlquilerVehiculo;
 	}
 
-	public String getEstado_vehiculo() {
-		return estado_vehiculo;
+	public String getEstadoVehiculo() {
+		return estadoVehiculo;
 	}
 
-	public void setEstado_vehiculo(String estado_vehiculo) {
-		this.estado_vehiculo = estado_vehiculo;
+	public void setEstadoVehiculo(String estadoVehiculo) {
+		this.estadoVehiculo = estadoVehiculo;
 	}
 	
 }
