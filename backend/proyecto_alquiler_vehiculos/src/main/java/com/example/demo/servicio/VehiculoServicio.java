@@ -1,9 +1,11 @@
 package com.example.demo.servicio;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.modelo.Vehiculo;
 import com.example.demo.repositorio.RepositorioVehiculo;
@@ -21,6 +23,18 @@ public class VehiculoServicio {
         return repositorio.findByTipoAndEstadoVehiculo(tipo, estadoVehiculo);
     }
 
-	
+	public boolean actualizarEstadoVehiculo(String placa, String nuevoEstado) {
+	    Optional<Vehiculo> vehiculoOptional = repositorio.findById(placa);
+
+	    if (vehiculoOptional.isPresent()) {
+	        Vehiculo vehiculo = vehiculoOptional.get();
+	        vehiculo.setEstadoVehiculo(nuevoEstado);
+	        repositorio.save(vehiculo);
+	        return true;
+	    } else {
+	        return false;
+	    }
+	}
+
 	
 }

@@ -3,6 +3,8 @@ package com.example.demo.controlador;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,5 +32,17 @@ public class VehiculoControlador {
 	    public List<Vehiculo> buscarDisponiblesPorTipo(@RequestParam String tipo) {
 	        return servicio.buscarPorTipoYEstado(tipo, "disponible");
 	    }
+	 
+	 @PostMapping("/actualizarEstado")
+	 public ResponseEntity<String> actualizarEstadoVehiculo(@RequestParam String placa, @RequestParam String nuevoEstado) {
+
+	     boolean actualizado = servicio.actualizarEstadoVehiculo(placa, nuevoEstado);
+
+	     if (actualizado) {
+	         return ResponseEntity.ok("Estado del vehículo actualizado correctamente.");
+	     } else {
+	         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Vehículo no encontrado con la placa: " + placa);
+	     }
+	 }
 
 }
