@@ -1,0 +1,78 @@
+<div class="container mt-4">
+  <h2 class="mb-4">Registrar Usuario</h2>
+
+  <form #formUsuario="ngForm" novalidate>
+    <div class="row">
+      <!-- Identificacion -->
+      <div class="col-md-6 mb-3">
+        <label>Identificacion</label>
+        <input type="text" class="form-control" [(ngModel)]="usuario.idUsuario" name="identificacion" required>
+      </div>
+
+      <!-- Primer Nombre -->
+      <div class="col-md-6 mb-3">
+        <label>Primer Nombre</label>
+        <input type="text" class="form-control" [(ngModel)]="usuario.primer_nombre_u" name="primerNombre_u" required>
+      </div>
+
+      <!-- Segundo Nombre -->
+      <div class="col-md-6 mb-3">
+        <label>Segundo Nombre</label>
+        <input type="text" class="form-control" [(ngModel)]="usuario.segundo_nombre_u" name="segundoNombre">
+      </div>
+
+      <!-- Primer Apellido -->
+      <div class="col-md-6 mb-3">
+        <label>Primer Apellido</label>
+        <input type="text" class="form-control" [(ngModel)]="usuario.primer_apellido_u" name="primerApellido" required>
+      </div>
+
+      <!-- Segundo Apellido -->
+      <div class="col-md-6 mb-3">
+        <label>Segundo Apellido</label>
+        <input type="text" class="form-control" [(ngModel)]="usuario.segundo_apellido_u" name="segundoApellido">
+      </div>
+
+      <!-- Fecha Expedición -->
+      <div class="col-md-6 mb-3">
+        <label>Fecha Expedición Licencia</label>
+        <input type="date" class="form-control" [(ngModel)]="usuario.fecha_expedicion_licencia" name="fechaExpedicion" required>
+      </div>
+
+      <!-- Categoría Licencia -->
+      <div class="col-md-6 mb-3">
+        <label>Categoría Licencia</label>
+        <input type="text" class="form-control" [(ngModel)]="usuario.categoria_licencia" name="categoriaLicencia" required>
+      </div>
+
+      <!-- Vigencia Licencia -->
+      <div class="col-md-6 mb-3">
+        <label>Vigencia Licencia</label>
+        <input type="date" class="form-control" [(ngModel)]="usuario.vigencia_licencia" name="vigenciaLicencia" required>
+      </div>
+
+      <!-- Correo -->
+      <div class="col-md-6 mb-3">
+        <label>Correo</label>
+        <input type="email" class="form-control" [(ngModel)]="usuario.correo" name="correo" required>
+      </div>
+
+      <!-- Teléfono -->
+      <div class="col-md-6 mb-3">
+        <label>Teléfono</label>
+        <input type="text" class="form-control" [(ngModel)]="usuario.telefono" name="telefono" required>
+      </div>
+
+      <!-- Contraseña -->
+      <div class="col-md-6 mb-3">
+        <label>Contraseña</label>
+        <input type="password" class="form-control" [(ngModel)]="usuario.contrasena_usuario" name="contrasena" required>
+      </div>
+    </div>
+
+    <!-- Botón -->
+    <button type="submit" class="btn btn-success mt-3" (click)="registrarUsuario()" >Registrarse</button>
+  </form>
+</div>
+
+

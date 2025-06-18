@@ -7,13 +7,12 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class UsuarioService {
-
-  private bdURL= "http://localhost:8080/usuario/listarUsuarios";
-
+  
+  private bdURL = "http://localhost:8080/usuario/guardarUsuario";
+  
   constructor(private httpClient: HttpClient) { }
 
-  //Ver los usuarios ingresados
-  obtenerListaUsuarios(): Observable<Usuario[]>{
-  return this.httpClient.get<Usuario[]>(`${this.bdURL}`);
+  registrar(usuario: Usuario): Observable<Object> {
+    return this.httpClient.post(`${this.bdURL}`, usuario);
   }
 }
