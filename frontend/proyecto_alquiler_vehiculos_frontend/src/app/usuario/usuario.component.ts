@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-usuario',
@@ -8,6 +8,9 @@ import { Component } from '@angular/core';
   templateUrl: './usuario.component.html',
   styleUrl: './usuario.component.css'
 })
-export class UsuarioComponent {
-
+export class UsuarioComponent implements OnInit{
+alquiler_vehiculos: any;
+ngOnInit(): void {
+  
+}
 }

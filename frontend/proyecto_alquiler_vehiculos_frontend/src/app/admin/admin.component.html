@@ -1,0 +1,28 @@
+<p>EMPLEADO</p>
+
+<table>
+    <thead>
+    <tr>
+        <th scope="col">id_admin</th>
+        <th scope="col">primer_nombre_a</th>
+        <th scope="col">segundo_nombre_a</th>
+        <th scope="col">primer_apellido_a</th>
+        <th scope="col">segundo_apellido_a</th>
+        <th scope="col">usuarioAdmin</th>
+        <th scope="col">contraseña_admin</th>
+
+    </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let item of alquiler_vehiculos">
+            <td >{{item.id_admin}}</td>
+            <td>{{item.primer_nombre_a}}</td>
+            <td>{{item.segundo_nombre_a}}</td>
+            <td>{{item.primer_apellido_a}}</td>
+            <td>{{item.segundo_apellido_a}}</td>
+            <td>{{item.usuarioAdmin}}</td>
+            <td>{{item.contrasena_admin}}</td>
+
+        </tr>
+    </tbody>
+</table>

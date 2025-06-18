@@ -1,1 +1,36 @@
-<p>usuario works!</p>
+<p>EMPLEADO</p>
+
+<table>
+    <thead>
+    <tr>
+        <th scope="col">id_usuario</th>
+        <th scope="col">primer_nombre_u</th>
+        <th scope="col">segundo_nombre_u</th>
+        <th scope="col">primer_apellido_u</th>
+        <th scope="col">segundo_apellido_u</th>
+        <th scope="col">fecha_expedicion_licencia</th>
+        <th scope="col">categoria_licencia</th>
+        <th scope="col">vigencia_licencia</th>
+        <th scope="col">correo</th>
+        <th scope="col"> telefono</th>
+        <th scope="col">contraseña_usuario</th>
+
+    </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let item of alquiler_vehiculos">
+            <td >{{item.id_usuario}}</td>
+            <td>{{item.primer_nombre_u}}</td>
+            <td>{{item.segundo_nombre_u}}</td>
+            <td>{{item.primer_apellido_u}}</td>
+            <td>{{item.segundo_apellido_u}}</td>
+            <td>{{item.fecha_expedicion_licencia}}</td>
+            <td>{{item.categoria_licencia}}</td>
+            <td>{{item.vigencia_licencia}}</td>
+            <td>{{item.correo}}</td>
+            <td>{{item.telefono}}</td>
+            <td>{{item.contrasena_usuario}}</td>
+
+        </tr>
+    </tbody>
+</table>
