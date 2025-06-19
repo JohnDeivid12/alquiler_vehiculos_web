@@ -63,7 +63,7 @@ public class Vehiculo {
 		this.color = color;
 	}
 
-	public Double getValor_alquiler_vehiculo() {
+	public Double getValorAlquilerVehiculo() {
 		return valorAlquilerVehiculo;
 	}
 

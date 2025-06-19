@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.modelo.Vehiculo;
 import com.example.demo.servicio.VehiculoServicio;
-
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/vehiculo")
 
@@ -28,11 +28,17 @@ public class VehiculoControlador {
 	        return servicio.guardarVehiculo(vehiculo);
 	    }
 	 
+	 @GetMapping("/buscarDisponibles")
+	    public List<Vehiculo> buscarDisponibles() {
+	        return servicio.buscarPorEstado("disponible");
+	    }
+	 
 	 @GetMapping("/buscarDisponiblesPorTipo")
 	    public List<Vehiculo> buscarDisponiblesPorTipo(@RequestParam String tipo) {
 	        return servicio.buscarPorTipoYEstado(tipo, "disponible");
 	    }
 	 
+	 //	//Actualizar estado de vehiculo
 	 @PostMapping("/actualizarEstado")
 	 public ResponseEntity<String> actualizarEstadoVehiculo(@RequestParam String placa, @RequestParam String nuevoEstado) {
 

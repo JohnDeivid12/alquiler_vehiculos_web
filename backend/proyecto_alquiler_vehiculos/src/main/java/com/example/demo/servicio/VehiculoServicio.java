@@ -15,14 +15,23 @@ public class VehiculoServicio {
 	@Autowired
     private RepositorioVehiculo repositorio;
 	
+	
 	public Vehiculo guardarVehiculo(Vehiculo vehiculo) {
         return repositorio.save(vehiculo);
     }	
 	
+	//Buscar vehiculos disponibles
+	public List<Vehiculo> buscarPorEstado(String estadoVehiculo) {
+        return repositorio.findByEstadoVehiculo(estadoVehiculo);
+	}
+	
+	//Buscar vehiculos de un tipo disponibles
 	public List<Vehiculo> buscarPorTipoYEstado(String tipo, String estadoVehiculo) {
         return repositorio.findByTipoAndEstadoVehiculo(tipo, estadoVehiculo);
     }
+	
 
+	//Actualizar estado de vehiculo
 	public boolean actualizarEstadoVehiculo(String placa, String nuevoEstado) {
 	    Optional<Vehiculo> vehiculoOptional = repositorio.findById(placa);
 
