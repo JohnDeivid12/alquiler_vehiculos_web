@@ -2,6 +2,8 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AdminService } from '../servicio/admin.service';
+import { Admin } from '../entities/admin';
 
 @Component({
   selector: 'app-iniciar-admin',
@@ -14,26 +16,27 @@ export class IniciarAdminComponent implements OnInit{
   ngOnInit(): void {
   }
 
-  admin = {
-    usuarioadmin: '',
-    contrasena_admin: ''
-  };
+  admin : Admin= new Admin;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router,
+    private adminService: AdminService
+  ) {}
 
-  iniciarSesionAdmin() {
-    if (this.admin.usuarioadmin && this.admin.contrasena_admin) {
-      console.log('Iniciando sesión como admin con:', this.admin);
-      // Aquí puedes conectar con un servicio que valide al admin
-      alert('¡Inicio de sesión de admin exitoso!');
-      this.router.navigate(['/vehiculos']);
-
-      
+  iniciarSesion() {
+    if (this.admin.usuarioAdmin && this.admin.contrasena_admin) {
+      this.adminService.iniciarSesion(this.admin.usuarioAdmin, this.admin.contrasena_admin).subscribe({        next: (data) => {
+          console.log('Sesión de admin iniciada correctamente:', data);
+          alert('¡Inicio de sesión de admin exitoso!');
+          this.router.navigate(['/vehiculos']); // o cualquier ruta de administrador
+        },
+        error: (err) => {
+          console.error('Error en inicio de sesión de admin:', err);
+          alert('Credenciales inválidas para administrador');
+        }
+      });
     } else {
-      console.log('Por favor, complete todos los campos');
       alert('Por favor, complete todos los campos');
     }
   }
-  
 
 }

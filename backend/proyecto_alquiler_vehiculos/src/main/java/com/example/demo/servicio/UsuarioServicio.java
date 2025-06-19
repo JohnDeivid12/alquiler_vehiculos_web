@@ -21,5 +21,15 @@ public class UsuarioServicio {
     public List<Usuario> obtenerTodos() {
         return repositorio.findAll();
     }
-}
+    
+    public Usuario iniciarSesion(String correo, String contrasena_usuario) {
+        Usuario usuario = repositorio.findByCorreo(correo);
+        
+        if (usuario != null && usuario.getContrasena_usuario().equals(contrasena_usuario)) {
+            return usuario;
+        }
+        
+        return null;
+    }
 
+    }

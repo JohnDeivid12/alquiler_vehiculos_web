@@ -4,60 +4,61 @@ import java.sql.Date;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
+
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+
 
 @Entity
 @Table(name = "usuario")
 
 public class Usuario {
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id_usuario;
-	
-	@Column (name="primer_nombre_u", length = 50, nullable = false)
-	private String primer_nombre_u;
-	
-	@Column (name="segundo_nombre_u", length = 50, nullable = false)
-	private String segundo_nombre_u;
-	
-	@Column (name="primer_apellido_u", length =50, nullable = false)
-	private String primer_apellido_u;
-	
-	@Column (name="segundo_apellido_u", length =50, nullable = false)
-	private String segundo_apellido_u;
-	
-	@Column (name="fecha_expedicion_licencia", nullable = false)
-	private Date fecha_expedicion_licencia;
-	
-	@Column (name="categoria_licencia", length =50, nullable = false)
-	private String categoria_licencia;
-	
-	@Column(name = "vigencia_licencia", nullable = false)
-	private Date vigencia_licencia;
-	
-	@Column (name="correo", length =50, nullable = false, unique = true)
-	private String correo;
-	
-	@Column (name="telefono", length =50, nullable = false)
-	private String telefono;
-	
-	@Column (name="contraseña_usuario", length =50, nullable = false)
-	private String contraseña_usuario;
+ 
+	    @Id
+	    @Column(name = "id_usuario", nullable = false, unique = true)
+	    private Long idUsuario;
+
+	    @Column(name = "primer_nombre_u", nullable = false)
+	    private String primer_nombre_u;
+
+	    @Column(name = "segundo_nombre_u")
+	    private String segundo_nombre_u;
+
+	    @Column(name = "primer_apellido_u", nullable = false)
+	    private String primer_apellido_u;
+
+	    @Column(name = "segundo_apellido_u")
+	    private String segundo_apellido_u;
+
+	    @Column(name = "fecha_expedicion_licencia", nullable = false)
+	    private Date fecha_expedicion_licencia;
+
+	    @Column(name = "categoria_licencia", nullable = false)
+	    private String categoria_licencia;
+
+	    @Column(name = "vigencia_licencia", nullable = false)
+	    private Date vigencia_licencia;
+
+	    @Column(name = "correo", nullable = false, unique = true)
+	    private String correo;
+
+	    @Column(name = "telefono", nullable = false)
+	    private String telefono;
+
+	    @Column(name = "contrasena_usuario", nullable = false)
+	    private String contrasena_usuario;
+
 	
 	public Usuario() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Usuario(long id_usuario, String primer_nombre_u, String segundo_nombre_u, String primer_apellido_u,
+	public Usuario(Long idUsuario, String primer_nombre_u, String segundo_nombre_u, String primer_apellido_u,
 			String segundo_apellido_u, Date fecha_expedicion_licencia, String categoria_licencia,
-			Date vigencia_licencia, String correo, String telefono, String contraseña_usuario) {
+			Date vigencia_licencia, String correo, String telefono, String contrasena_usuario) {
 		super();
-		this.id_usuario = id_usuario;
+		this.idUsuario = idUsuario;
 		this.primer_nombre_u = primer_nombre_u;
 		this.segundo_nombre_u = segundo_nombre_u;
 		this.primer_apellido_u = primer_apellido_u;
@@ -67,15 +68,15 @@ public class Usuario {
 		this.vigencia_licencia = vigencia_licencia;
 		this.correo = correo;
 		this.telefono = telefono;
-		this.contraseña_usuario = contraseña_usuario;
+		this.contrasena_usuario = contrasena_usuario;
 	}
 
-	public long getId_usuario() {
-		return id_usuario;
+	public Long getIdUsuario() {
+		return idUsuario;
 	}
 
-	public void setId_usuario(long id_usuario) {
-		this.id_usuario = id_usuario;
+	public void setIdUsuario(Long idUsuario) {
+		this.idUsuario = idUsuario;
 	}
 
 	public String getPrimer_nombre_u() {
@@ -150,14 +151,13 @@ public class Usuario {
 		this.telefono = telefono;
 	}
 
-	public String getContraseña_usuario() {
-		return contraseña_usuario;
+	public String getContrasena_usuario() {
+		return contrasena_usuario;
 	}
 
-	public void setContraseña_usuario(String contraseña_usuario) {
-		this.contraseña_usuario = contraseña_usuario;
+	public void setContraseña_usuario(String contrasena_usuario) {
+		this.contrasena_usuario = contrasena_usuario;
 	}
 	
 }
-
 
