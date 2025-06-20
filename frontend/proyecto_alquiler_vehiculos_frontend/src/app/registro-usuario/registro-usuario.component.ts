@@ -17,25 +17,44 @@ export class RegistroUsuarioComponent implements OnInit {
 
   //Conexion con Usuario entidad
   usuario: Usuario = new Usuario;
-
+  
+  
   //Servicio
   constructor(private usuarioServicio: UsuarioService){
 
   }
   
-  registrarUsuario(){
-    this.usuarioServicio.registrar(this.usuario).subscribe(dato => {
-      console.log(dato);
-      if (dato != null) {
-        alert("Estas Registrado");
-        this.ngOnInit()
+  registrarUsuario() {
+  const hoy = new Date();
 
-      } else {
-        alert("Registro no guardado");
-      }
-    });
+  const fechaExp = new Date(this.usuario.fecha_expedicion_licencia);
+  const vigencia = new Date(this.usuario.vigencia_licencia);
 
+  // Validación: no permitir fechas futuras
+  if (fechaExp > hoy) {
+    alert("La fecha de expedición de la licencia no puede ser mayor a la fecha actual.");
+    return;
   }
+  if (vigencia < hoy) {
+    alert("La vigencia de la licencia no puede ser menor a la fecha actual.");
+    return;
+  }
+
+  // Si todo está bien, continúa con el registro
+  this.usuarioServicio.registrar(this.usuario).subscribe(dato => {
+    console.log(dato);
+    if (dato != null) {
+      alert("Estás registrado");
+      this.usuario = new Usuario();  // reinicia el formulario
+    } else {
+      alert("Registro no guardado");
+    }
+  }, error => {
+    console.error(error);
+    alert("Error al registrar usuario");
+  });
+}
+
 
 }
 

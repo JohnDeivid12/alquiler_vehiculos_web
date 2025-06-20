@@ -1,0 +1,52 @@
+<div class="container mt-4">
+  <h4 class="mb-3">¡Bienvenido Administrador!</h4>
+
+  <div class="mb-3">
+    <label for="opciones" class="form-label fw-semibold">¿Qué quieres hacer?:</label>
+    <select class="form-select" [(ngModel)]="opcionSeleccionada" (change)="verOpciones()">
+      <option value="">-- Selecciona una opción --</option>
+      <option value="verPendientes">Ver vehículos alquilados pendientes de entrega</option>
+      <!-- puedes añadir más opciones aquí -->
+    </select>
+  </div>
+
+  <!-- Mostrar tabla SOLO si la opción seleccionada es verPendientes -->
+  <div *ngIf="opcionSeleccionada === 'verPendientes'" class="mt-4">
+    <h5 class="mb-3 text-primary">Vehículos con alquiler pendiente de entrega</h5>
+
+  <div *ngIf="vehiculosPendientes && vehiculosPendientes.length === 0" class="alert alert-warning"> 
+    No hay vehículos con estado pendiente de entrega.
+  </div>
+
+    <div *ngIf="vehiculosPendientes && vehiculosPendientes.length > 0" class="table-responsive">
+      <table class="table table-striped table-hover table-bordered align-middle shadow-sm rounded-3">
+        <thead class="table-dark">
+          <tr>
+            <th>Placa</th>
+            <th>Tipo</th>
+            <th>Color</th>
+            <th>Valor alquiler</th>
+            <th>Estado</th>
+            <th class="text-center">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let v of vehiculosPendientes">
+            <td>{{ v.placa }}</td>
+            <td class="text-capitalize">{{ v.tipo }}</td>
+            <td class="text-capitalize">{{ v.color }}</td>
+            <td class="text-end">${{ v.valorAlquilerVehiculo | number:'1.0-0' }}</td>
+            <td>
+              <span class="badge bg-warning text-dark">{{ v.estadoVehiculo }}</span>
+            </td>
+            <td class="text-center">
+              <button class="btn btn-sm btn-success" (click)="marcarComoEntregado(v.placa)">
+                Entregar
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

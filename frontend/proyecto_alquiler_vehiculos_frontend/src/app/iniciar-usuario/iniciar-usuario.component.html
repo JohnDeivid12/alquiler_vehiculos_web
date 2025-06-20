@@ -1,0 +1,37 @@
+<div class="container mt-4">
+  <h2 class="mb-4">Iniciar Sesión</h2>
+
+  <form #formLogin="ngForm" novalidate>
+    <div class="row">
+      <!-- Correo -->
+      <div class="col-md-6 mb-3">
+        <label for="correo">Correo</label>
+        <input type="email"
+               class="form-control"
+               id="correo"
+               name="correo"
+               [(ngModel)]="usuarioSesion.correo"
+               required>
+      </div>
+
+      <!-- Contrasena -->
+      <div class="col-md-6 mb-3">
+        <label for="contrasena_usuario">Contrasena</label>
+        <input type="password"
+               class="form-control"
+               id="contrasena_usuario"
+               name="contrasena_usuario"
+               [(ngModel)]="usuarioSesion.contrasena_usuario"
+               required>
+      </div>
+    </div>
+
+    <!-- Botón -->
+    <button type="submit"
+            class="btn btn-primary mt-3"
+            (click)="iniciarSesion()"
+            [disabled]="formLogin.invalid">
+      Iniciar Sesion
+    </button>
+  </form>
+</div>

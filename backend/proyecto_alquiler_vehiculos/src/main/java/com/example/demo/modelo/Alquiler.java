@@ -19,7 +19,7 @@ public class Alquiler {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_alquiler")
-    private Long id_alquiler;
+    private Long idAlquiler;
 	
 	@OneToOne()
 	   @JoinColumn(name = "placa", referencedColumnName = "placa")
@@ -30,48 +30,48 @@ public class Alquiler {
 	    private Usuario usuario;
 
 	@Column(name = "fecha_inicio")
-    private Date fecha_inicio;
+    private Date fechaInicio;
 	
 	@Column(name = "fecha_entrega")
-    private Date fecha_entrega;
+    private Date fechaEntrega;
 	
 	@Column(name = "valor_alquiler")
-    private Double valor_alquiler;
+    private Double valorAlquiler;
 	
 	@Column(name = "estado")
     private String estado; 
 	
 	@Column(name = "fecha_entrega_real")
-    private Date fecha_entrega_real; 
+    private Date fechaEntregaReal; 
 	
 	@Column(name = "costo_extra")
-    private Double costo_extra; 
+    private Double costoExtra; 
 	
 	@Column(name = "valor_total_alquiler")
-    private Double valor_total_alquiler;
+    private Double valorTotalAlquiler;
 
-	public Alquiler(Long id_alquiler, Vehiculo vehiculo, Usuario usuario, Date fecha_inicio, Date fecha_entrega,
-			Double valor_alquiler, String estado, Date fecha_entrega_real, Double costo_extra,
-			Double valor_total_alquiler) {
+	public Alquiler(Long idAlquiler, Vehiculo vehiculo, Usuario usuario, Date fechaInicio, Date fechaEntrega,
+			Double valorAlquiler, String estado, Date fechaEntregaReal, Double costoExtra,
+			Double valorTotalAlquiler) {
 		super();
-		this.id_alquiler = id_alquiler;
+		this.idAlquiler = idAlquiler;
 		this.vehiculo = vehiculo;
 		this.usuario = usuario;
-		this.fecha_inicio = fecha_inicio;
-		this.fecha_entrega = fecha_entrega;
-		this.valor_alquiler = valor_alquiler;
+		this.fechaInicio = fechaInicio;
+		this.fechaEntrega = fechaEntrega;
+		this.valorAlquiler = valorAlquiler;
 		this.estado = estado;
-		this.fecha_entrega_real = fecha_entrega_real;
-		this.costo_extra = costo_extra;
-		this.valor_total_alquiler = valor_total_alquiler;
+		this.fechaEntregaReal = fechaEntregaReal;
+		this.costoExtra = costoExtra;
+		this.valorTotalAlquiler = valorTotalAlquiler;
 	}
 
-	public Long getId_alquiler() {
-		return id_alquiler;
+	public Long getIdAlquiler() {
+		return idAlquiler;
 	}
 
-	public void setId_alquiler(Long id_alquiler) {
-		this.id_alquiler = id_alquiler;
+	public void setIdAlquiler(Long idAlquiler) {
+		this.idAlquiler = idAlquiler;
 	}
 
 	public Vehiculo getVehiculo() {
@@ -90,28 +90,28 @@ public class Alquiler {
 		this.usuario = usuario;
 	}
 
-	public Date getFecha_inicio() {
-		return fecha_inicio;
+	public Date getFechaInicio() {
+		return fechaInicio;
 	}
 
-	public void setFecha_inicio(Date fecha_inicio) {
-		this.fecha_inicio = fecha_inicio;
+	public void setFechaInicio(Date fechaInicio) {
+		this.fechaInicio = fechaInicio;
 	}
 
-	public Date getFecha_entrega() {
-		return fecha_entrega;
+	public Date getFechaEntrega() {
+		return fechaEntrega;
 	}
 
-	public void setFecha_entrega(Date fecha_entrega) {
-		this.fecha_entrega = fecha_entrega;
+	public void setFechaEntrega(Date fecha_entrega) {
+		this.fechaEntrega = fecha_entrega;
 	}
 
-	public Double getValor_alquiler() {
-		return valor_alquiler;
+	public Double getValorAlquiler() {
+		return valorAlquiler;
 	}
 
-	public void setValor_alquiler(Double valor_alquiler) {
-		this.valor_alquiler = valor_alquiler;
+	public void setValorAlquiler(Double valorAlquiler) {
+		this.valorAlquiler = valorAlquiler;
 	}
 
 	public String getEstado() {
@@ -122,28 +122,28 @@ public class Alquiler {
 		this.estado = estado;
 	}
 
-	public Date getFecha_entrega_real() {
-		return fecha_entrega_real;
+	public Date getFechaEntregaReal() {
+		return fechaEntregaReal;
 	}
 
-	public void setFecha_entrega_real(Date fecha_entrega_real) {
-		this.fecha_entrega_real = fecha_entrega_real;
+	public void setFechaEntregaReal(Date fechaEntregaReal) {
+		this.fechaEntregaReal = fechaEntregaReal;
 	}
 
-	public Double getCosto_extra() {
-		return costo_extra;
+	public Double getCostoExtra() {
+		return costoExtra;
 	}
 
-	public void setCosto_extra(Double costo_extra) {
-		this.costo_extra = costo_extra;
+	public void setCostoExtra(Double costoExtra) {
+		this.costoExtra = costoExtra;
 	}
 
-	public Double getValor_total_alquiler() {
-		return valor_total_alquiler;
+	public Double getValorTotalAlquiler() {
+		return valorTotalAlquiler;
 	}
 
-	public void setValor_total_alquiler(Double valor_total_alquiler) {
-		this.valor_total_alquiler = valor_total_alquiler;
+	public void setValorTotalAlquiler(Double valorTotalAlquiler) {
+		this.valorTotalAlquiler = valorTotalAlquiler;
 	}
 
 	public Alquiler() {

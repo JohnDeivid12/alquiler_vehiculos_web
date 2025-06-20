@@ -1,0 +1,36 @@
+<div class="container mt-4">
+  <h2 class="mb-4">Iniciar Sesión como Administrador</h2>
+
+  <form #formAdminLogin="ngForm" novalidate>
+    <div class="row">
+      <!-- Usuario Admin -->
+      <div class="col-md-6 mb-3">
+        <label for="usuarioAdmin">Usuario</label>
+        <input type="text"
+               class="form-control"
+               id="usuarioAdmin"
+               name="usuarioAdmin"
+               [(ngModel)]="admin.usuarioAdmin"
+               required>
+      </div>
+
+      <!-- Contraseña Admin -->
+      <div class="col-md-6 mb-3">
+        <label for="contrasena_admin">Contraseña</label>
+        <input type="password"
+               class="form-control"
+               id="contrasena_admin"
+               name="contrasena_admin"
+               [(ngModel)]="admin.contrasena_admin"
+               required>
+      </div>
+    </div>
+
+    <!-- Botón -->
+    <button type="submit"
+            class="btn btn-primary mt-3"
+            (click)="iniciarSesion()"
+            [disabled]="formAdminLogin.invalid">
+      Iniciar Sesión
+    </button>
+  </form>

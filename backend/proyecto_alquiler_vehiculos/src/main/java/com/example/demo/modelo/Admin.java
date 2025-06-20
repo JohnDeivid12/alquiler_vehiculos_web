@@ -15,8 +15,8 @@ public class Admin {
     @Column(name = "id_admin")
     private Long id_admin;
     
-    @Column(name = "usuario_admin", length = 50, nullable = false, unique = true)
-    private String usuario_admin;
+    @Column(name = "usuarioadmin", length = 50, nullable = false, unique = true)
+    private String usuarioAdmin;
     
     @Column(name = "primer_nombre_a", length = 50, nullable = false)
     private String primer_nombre_a;
@@ -30,8 +30,8 @@ public class Admin {
     @Column(name = "segundo_apellido_a", length = 50)
     private String segundo_apellido_a;
     
-    @Column(name = "contraseña_admin", length = 40, nullable = false)
-    private String contraseña_admin;
+    @Column(name = "contrasena_admin", length = 40, nullable = false)
+    private String contrasena_admin;
 
 	public Long getId_admin() {
 		return id_admin;
@@ -42,28 +42,28 @@ public class Admin {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Admin(Long id_admin, String usuario_admin, String primer_nombre_a, String segundo_nombre_a,
-			String primer_apellido_a, String segundo_apellido_a, String contraseña_admin) {
+	public Admin(Long id_admin, String usuarioAdmin, String primer_nombre_a, String segundo_nombre_a,
+			String primer_apellido_a, String segundo_apellido_a, String contrasena_admin) {
 		super();
 		this.id_admin = id_admin;
-		this.usuario_admin = usuario_admin;
+		this.usuarioAdmin = usuarioAdmin;
 		this.primer_nombre_a = primer_nombre_a;
 		this.segundo_nombre_a = segundo_nombre_a;
 		this.primer_apellido_a = primer_apellido_a;
-		this.segundo_apellido_a = segundo_apellido_a;
-		this.contraseña_admin = contraseña_admin;
+		this.segundo_apellido_a = segundo_apellido_a; 
+		this.contrasena_admin = contrasena_admin;
 	}
 
 	public void setId_admin(Long id_admin) {
 		this.id_admin = id_admin;
 	}
 
-	public String getUsuario_admin() {
-		return usuario_admin;
+	public String getUsuarioAdmin() {
+		return usuarioAdmin;
 	}
 
-	public void setUsuario_admin(String usuario_admin) {
-		this.usuario_admin = usuario_admin;
+	public void setUsuarioAdmin(String usuarioAdmin) {
+		this.usuarioAdmin = usuarioAdmin;
 	}
 
 	public String getPrimer_nombre_a() {
@@ -98,12 +98,12 @@ public class Admin {
 		this.segundo_apellido_a = segundo_apellido_a;
 	}
 
-	public String getContraseña_admin() {
-		return contraseña_admin;
+	public String getContrasena_admin() {
+		return contrasena_admin;
 	}
 
-	public void setContraseña_admin(String contraseña_admin) {
-		this.contraseña_admin = contraseña_admin;
+	public void setContrasena_admin(String contrasena_admin) {
+		this.contrasena_admin = contrasena_admin;
 	}
    
 }

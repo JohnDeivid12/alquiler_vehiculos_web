@@ -16,7 +16,7 @@ export class VehiculoComponent implements OnInit {
   vehiculosDisponibles: Vehiculo[]=[];
   usuarioServicio: UsuarioService;
   vehiculo: Vehiculo =  new Vehiculo;
-  tiposVehiculo: string[] = ['Camioneta', 'Particular', 'Microbus', 'eep'];
+  tiposVehiculo: string[] = ['Camioneta', 'Particular', 'Microbus', 'Jeep'];
   tipoSeleccionado: string = '';
    
   ngOnInit(): void {
