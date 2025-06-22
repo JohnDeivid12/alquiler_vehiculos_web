@@ -6,7 +6,8 @@
     <select class="form-select" [(ngModel)]="opcionSeleccionada" (change)="verOpciones()">
       <option value="">-- Selecciona una opción --</option>
       <option value="verPendientes">Ver vehículos alquilados pendientes de entrega</option>
-      <!-- puedes añadir más opciones aquí -->
+      <option value="calcularCostoExtra">Calcular costo extra por retraso</option>
+
     </select>
   </div>
 
@@ -49,4 +50,54 @@
       </table>
     </div>
   </div>
+
+  <!-- Mostrar formulario SOLO si la opción seleccionada es calcularCostoExtra -->
+<div *ngIf="opcionSeleccionada === 'calcularCostoExtra'" class="mt-4">
+  <h5 class="mb-3 text-primary">Calcular Costo Extra por Retraso</h5>
+
+  <form (ngSubmit)="calcularCostoExtra()" #formCosto="ngForm" class="border p-4 rounded shadow-sm bg-light">
+  <div class="mb-3">
+    <label for="idAlquiler" class="form-label">ID del alquiler</label>
+    <input type="number" id="idAlquiler" name="idAlquiler" class="form-control"
+           [(ngModel)]="idAlquilerConsulta" required>
+  </div>
+
+  <div class="mb-3">
+    <label for="idAdmin" class="form-label">ID del administrador</label>
+    <input type="number" id="idAdmin" name="idAdmin" class="form-control" [(ngModel)]="idAdminConsulta" required>
+  </div>
+
+  <div class="mb-3">
+    <label for="fechaEntregaReal" class="form-label">Fecha de entrega real</label>
+    <input type="date" id="fechaEntregaReal" name="fechaEntregaReal" class="form-control" [(ngModel)]="fechaEntregaReal" required>
+  </div>
+
+  <button type="submit" class="btn btn-primary">Calcular total del alquiler</button>
+</form>
+
+
+  <div *ngIf="resultadoCosto" class="table-responsive mt-4">
+  <table class="table table-bordered table-striped align-middle shadow-sm">
+    <thead class="table-dark">
+      <tr>
+        <th>Id Alquiler</th>
+        <th>Valor Alquiler</th>
+        <th>Costo Extra</th>
+        <th>Total a Pagar</th>
+        <th>Fecha Entrega Real</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>{{ resultadoCosto.idAlquiler }}</td>
+        <td>${{ resultadoCosto.valorAlquiler | number:'1.0-0' }}</td>
+        <td>${{ resultadoCosto.costoExtra | number:'1.0-0' }}</td>
+        <td>${{ resultadoCosto.valorTotalAlquiler | number:'1.0-0' }}</td>
+        <td>{{ resultadoCosto.fechaEntregaReal | date:'yyyy-MM-dd' }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
 </div>

@@ -12,6 +12,7 @@ export class AdminService {
   private bdURLS = "http://localhost:8080/admin/iniciarSesion";
   private bdURLP = "http://localhost:8080/admin/vehiculosPendientes";
   private bdURLE = "http://localhost:8080/admin/entregarVehiculo";
+  private bdURLD = "http://localhost:8080/alquiler/devolucion";
   constructor(private httpClient: HttpClient) { }
 
   iniciarSesion(usuarioAdmin:string, contrasena_admin:string ): Observable<any> {
@@ -38,5 +39,19 @@ export class AdminService {
     const params = new HttpParams().set('placa', placa);
     return this.httpClient.post(`${this.bdURLE}`, null, { params, responseType: 'text' });
   }
+
+  //BY JOHN DEIVID: CALCULAR COSTO EXTRA Y ACTUALIZAR ESTADO DEL VEHICULO A DISPONIBLE
+costoExtra(idAlquiler: number, fechaEntregaReal: string, idAdmin: number): Observable<any> {
+  const body = new URLSearchParams();
+  body.set('idAlquiler', idAlquiler.toString());
+  body.set('fechaEntregaReal', fechaEntregaReal);
+  body.set('idAdmin', idAdmin.toString());
+
+  return this.httpClient.post<any>(this.bdURLD, body.toString(), {
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded'
+    }
+  });
+}
 }
 

@@ -55,9 +55,10 @@ public class GestionAlquiler {
 		this.alquiler = alquiler;
 	}
 	
-	public Alquiler getAdmin() {
-		return alquiler;
+	public Admin getAdmin() {
+	    return admin;
 	}
+
 
 	public void setAdmin(Admin admin) {
 		this.admin = admin;

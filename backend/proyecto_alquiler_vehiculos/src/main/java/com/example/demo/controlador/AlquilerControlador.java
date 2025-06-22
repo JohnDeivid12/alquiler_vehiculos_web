@@ -8,6 +8,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,6 +22,8 @@ import com.example.demo.servicio.AlquilerServicio;
 
 @RestController
 @RequestMapping("/alquiler")
+@CrossOrigin(origins = "http://localhost:4200")
+
 public class AlquilerControlador {
 	 @Autowired
 	    private AlquilerServicio servicio;
@@ -71,5 +74,19 @@ public class AlquilerControlador {
 	                    .body("No fue posible actualizar el estado. Verifique el ID o si la transición es válida.");
 	        }
 	    }
-
+	 
+	 //BY JOHN DEIVID: CALCULAR COSTO EXTRA Y ACTUALIZAR ESTADO DEL VEHICULO A DISPONIBLE
+	 @PostMapping("/devolucion")
+	 public ResponseEntity<?> registrarDevolucion(@RequestParam Long idAlquiler, 
+	                                              @RequestParam String fechaEntregaReal,
+	                                              @RequestParam Long idAdmin) {
+	     try {
+	         Map<String, Object> respuesta = servicio.procesarEntregaYCalcularCosto(idAlquiler, fechaEntregaReal, idAdmin);
+	         return ResponseEntity.ok(respuesta);
+	     } catch (RuntimeException e) {
+	         return ResponseEntity.badRequest().body("Error: " + e.getMessage());
+	     } catch (Exception e) {
+	         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error interno: " + e.getMessage());
+	     }
+	 }
 }

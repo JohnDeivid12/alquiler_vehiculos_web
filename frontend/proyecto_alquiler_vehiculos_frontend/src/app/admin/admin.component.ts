@@ -16,6 +16,12 @@ export class AdminComponent implements OnInit {
 
   vehiculosPendientes: Vehiculo[] = [];
   opcionSeleccionada: string = '';
+  //placaConsulta: string = '';
+  idAlquilerConsulta: number;
+  idAdminConsulta: number = 0;
+  fechaEntregaReal: string = '';
+  resultadoCosto: any = null;
+
 
   constructor(private adminService: AdminService) {}
 
@@ -56,5 +62,40 @@ export class AdminComponent implements OnInit {
       }
     });
   }
+
+  //BY JOHN DEIVID: CALCULAR COSTO EXTRA Y ACTUALIZAR ESTADO DEL VEHICULO A DISPONIBLE
+calcularCostoExtra() {
+  if (!this.idAlquilerConsulta || !this.fechaEntregaReal || !this.idAdminConsulta) {
+    alert('Debes completar todos los campos');
+    return;
+  }
+
+  this.adminService.costoExtra(
+    this.idAlquilerConsulta,
+    this.fechaEntregaReal,
+    this.idAdminConsulta
+  ).subscribe({
+    next: (res) => {
+      this.resultadoCosto = {
+        idAlquiler: res.idAlquiler,
+        valorAlquiler: res.valorAlquiler,
+        costoExtra: res.costoExtra,
+        valorTotalAlquiler: res.valorTotalAlquiler,
+        fechaEntregaReal: res.fechaEntregaReal
+      };
+
+      // Limpiar campos
+      this.idAlquilerConsulta = 0;
+      this.idAdminConsulta = 0;
+      this.fechaEntregaReal = '';
+    },
+    error: (err) => {
+      console.error('Error al calcular costo extra', err);
+      alert('No se pudo calcular el costo extra');
+      this.resultadoCosto = null;
+    }
+  });
+}
+
 }
 

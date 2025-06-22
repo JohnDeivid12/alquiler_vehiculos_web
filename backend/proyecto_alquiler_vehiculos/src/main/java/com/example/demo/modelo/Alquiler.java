@@ -21,9 +21,10 @@ public class Alquiler {
     @Column(name = "id_alquiler")
     private Long idAlquiler;
 	
-	@OneToOne()
-	   @JoinColumn(name = "placa", referencedColumnName = "placa")
-	    private Vehiculo vehiculo;
+	//Modificado por John Deivid de OneToOne a ManyToOne
+	@ManyToOne
+	@JoinColumn(name = "placa", referencedColumnName = "placa")
+	private Vehiculo vehiculo;
 	
 	@ManyToOne()
 	   @JoinColumn(name = "id_usuario", referencedColumnName = "id_usuario")

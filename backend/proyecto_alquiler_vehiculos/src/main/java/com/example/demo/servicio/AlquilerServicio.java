@@ -1,6 +1,11 @@
 package com.example.demo.servicio;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +35,10 @@ public class AlquilerServicio {
 	
 	@Autowired
 	private VehiculoServicio vehiculoServicio;
+	
+	@Autowired
+	private GestionAlquilerServicio gestionAlquilerServicio;
+
 	
 	//Crear alquiler
 	public Alquiler crearAlquiler(String correo, String placaVehiculo, 
@@ -128,4 +137,53 @@ public class AlquilerServicio {
 	    }
 
     }
+	
+	//BY JOHN DEIVID: CALCULAR COSTO EXTRA Y ACTUALIZAR ESTADO DEL VEHICULO A DISPONIBLE
+	@Transactional
+	public Map<String, Object> procesarEntregaYCalcularCosto(Long idAlquiler, String fechaEntregaRealStr, Long idAdmin) throws ParseException {
+	    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+	    Date fechaEntregaReal = sdf.parse(fechaEntregaRealStr);
+
+	    Optional<Alquiler> alquilerOpt = repositorio.findById(idAlquiler);
+	    if (!alquilerOpt.isPresent()) {
+	        throw new RuntimeException("No se encontró el alquiler con ID: " + idAlquiler);
+	    }
+
+	    Alquiler alquiler = alquilerOpt.get();
+	    alquiler.setFechaEntregaReal(fechaEntregaReal);
+
+	    Date fechaPactada = alquiler.getFechaEntrega();
+	    long diffDias = (fechaEntregaReal.getTime() - fechaPactada.getTime()) / (1000 * 60 * 60 * 24);
+
+	    double costoExtra = 0.0;
+	    if (diffDias > 0) {
+	        double valorDiario = alquiler.getVehiculo().getValorAlquilerVehiculo();
+	        costoExtra = valorDiario * diffDias;
+	    }
+
+	    alquiler.setCostoExtra(costoExtra);
+	    alquiler.setValorTotalAlquiler(alquiler.getValorAlquiler() + costoExtra);
+	    alquiler.setEstado("devuelto");
+
+	    repositorio.save(alquiler);
+	    vehiculoServicio.actualizarEstadoVehiculo(alquiler.getVehiculo().getPlaca(), "disponible");
+
+	    // Registrar la gestión del alquiler
+	    gestionAlquilerServicio.registrarGestion(idAdmin, idAlquiler, fechaEntregaReal);
+
+	    // Armar la respuesta
+	    Map<String, Object> respuesta = new HashMap<>();
+	    respuesta.put("idAlquiler", alquiler.getIdAlquiler());
+	    respuesta.put("vehiculo", alquiler.getVehiculo());
+	    respuesta.put("costoExtra", costoExtra);
+	    respuesta.put("valorAlquiler", alquiler.getValorAlquiler());
+	    respuesta.put("valorTotalAlquiler", alquiler.getValorTotalAlquiler());
+	    respuesta.put("fechaEntregaReal", fechaEntregaReal);
+
+	    return respuesta;
+	}
+
+
+
+
 }
