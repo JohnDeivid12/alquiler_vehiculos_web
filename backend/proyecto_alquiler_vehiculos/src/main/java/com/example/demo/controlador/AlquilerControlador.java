@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.modelo.Alquiler;
 import com.example.demo.servicio.AlquilerServicio;
 
-
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/alquiler")
 public class AlquilerControlador {
@@ -45,7 +46,10 @@ public class AlquilerControlador {
 	            // Crear el alquiler
 	            Alquiler alquiler = servicio.crearAlquiler(correo, placa, fechaInicio, fechaEntrega);
 	            
-	            return ResponseEntity.ok(alquiler);
+	            return ResponseEntity.ok(Map.of(
+	            	    "idAlquiler", alquiler.getId_alquiler(),
+	            	    "valor", alquiler.getValor_total_alquiler()
+	            	));
 	            
 	        } catch (RuntimeException e) {
 	            return ResponseEntity.badRequest().body("Error: " + e.getMessage());

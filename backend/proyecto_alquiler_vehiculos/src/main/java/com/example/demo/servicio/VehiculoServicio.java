@@ -36,9 +36,10 @@ public class VehiculoServicio {
 	    }
 	}
 	
-	public List<Vehiculo> obtenerVehiculosDisponibles() {
-        return repositorio.findByEstadoVehiculoIgnoreCase("disponible");
-    }
+	public List<Vehiculo> buscarPorEstado(String estadoVehiculo) {
+        return repositorio.findByEstadoVehiculo(estadoVehiculo);
+	}
+	
 	
 	
 }

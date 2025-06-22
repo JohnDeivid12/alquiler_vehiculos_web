@@ -11,7 +11,6 @@ import com.example.demo.modelo.Vehiculo;
 public interface RepositorioVehiculo extends JpaRepository<Vehiculo, String> { 
 	
 	public List<Vehiculo> findByTipoAndEstadoVehiculo(String tipo, String estadoVehiculo);
-	
-	public List<Vehiculo> findByEstadoVehiculoIgnoreCase(String estadoVehiculo);
+	public List<Vehiculo> findByEstadoVehiculo( String estadoVehiculo);
 	
 }

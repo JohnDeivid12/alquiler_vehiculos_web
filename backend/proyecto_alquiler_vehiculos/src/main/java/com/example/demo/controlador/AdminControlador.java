@@ -41,7 +41,7 @@ public class AdminControlador {
 	
 	@GetMapping("/vehiculos-disponibles")
 	public List<Vehiculo> obtenerDisponibles() {
-	    return servicioV.obtenerVehiculosDisponibles(); // <-- reutilizando el mismo método del servicio
+	    return servicioV.buscarPorEstado("Disponible"); // <-- reutilizando el mismo método del servicio
 	}
 	
 	 @PostMapping("/actualizarEstadoDesdeAdmin")
@@ -83,17 +83,7 @@ public class AdminControlador {
 	                    .body("Credenciales inválidas");
 	        	}
 	    }
-	 /* @PostMapping("/iniciarSesion")
-    public ResponseEntity<?> iniciarSesion(@RequestParam String correo, @RequestParam String contrasena_usuario) {
-        Usuario usuario = servicio.iniciarSesion(correo, contrasena_usuario);
-        
-        if (usuario != null) {
-            return ResponseEntity.ok(usuario);
-        } 	else {
-            	return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-                    .body("Credenciales inválidas");
-        	}
-    }  */
+	 
 	 }
 	
 
