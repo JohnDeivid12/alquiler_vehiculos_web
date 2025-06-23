@@ -4,6 +4,7 @@ import { IniciarUsuarioComponent } from './iniciar-usuario/iniciar-usuario.compo
 import { VehiculoComponent } from './vehiculo/vehiculo.component';
 import { IniciarAdminComponent } from './iniciar-admin/iniciar-admin.component';
 import { AdminComponent } from './admin/admin.component';
+import { UsuarioComponent } from './usuario/usuario.component';
 
 export const routes: Routes = [
     {path: 'registro-usuario', component: RegistroUsuarioComponent},
@@ -11,4 +12,5 @@ export const routes: Routes = [
     { path: 'vehiculo', component: VehiculoComponent },
     { path: 'iniciar-admin', component: IniciarAdminComponent },
     { path: 'alquiler-pendiente', component: AdminComponent },
+    { path: 'usuario', component: UsuarioComponent },
 ];

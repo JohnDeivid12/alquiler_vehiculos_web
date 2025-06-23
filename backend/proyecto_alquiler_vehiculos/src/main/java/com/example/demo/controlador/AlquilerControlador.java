@@ -51,7 +51,11 @@ public class AlquilerControlador {
 	            // Crear el alquiler
 	            Alquiler alquiler = servicio.crearAlquiler(correo, placa, fechaInicio, fechaEntrega);
 	            
-	            return ResponseEntity.ok(alquiler);
+	            //Ballest
+	            return ResponseEntity.ok(Map.of(
+	            	    "idAlquiler", alquiler.getIdAlquiler(),
+	            	    "valor", alquiler.getValorTotalAlquiler()
+	            	));
 	            
 	        } catch (RuntimeException e) {
 	            return ResponseEntity.badRequest().body("Error: " + e.getMessage());

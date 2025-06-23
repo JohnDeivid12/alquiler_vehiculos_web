@@ -18,10 +18,15 @@ export class UsuarioComponent implements OnInit {
   }
 
   vehiculo: Vehiculo = new Vehiculo;
-
   usuarioCancela: Usuario = new Usuario;
 
-  alquilerCancela: Alquiler =new Alquiler;
+  alquilerCancela = {
+  idAlquiler: 0
+};
+  correoCancela = ''; // Aquí irá el correo del usuario
+  alquileresUsuario: any[] = [];
+  correo: string = '';
+
 
   constructor(private usuarioServicio: UsuarioService) {}
   
@@ -38,21 +43,39 @@ export class UsuarioComponent implements OnInit {
     });
 }
 
-cancelarAlquiler() {
-  if (this.alquilerCancela.idAlquiler > 0 && this.usuarioCancela.idUsuario > 0) {
-    this.usuarioServicio.cancelarAlquilerVehiculo(this.alquilerCancela.idAlquiler, this.usuarioCancela.idUsuario).subscribe({
-      next: (mensaje) => {
-        alert(mensaje);
-      },
-      error: (err) => {
-        console.error(err);
-        alert(err.error || 'Error al cancelar el alquiler.');
-      }
-    });
-  } else {
-    alert("Debes ingresar ID de alquiler e ID de usuario.");
+//By JOHN DEIVID
+verMisAlquileres() {
+  if (!this.correo) {
+    alert("Debes ingresar tu correo.");
+    return;
   }
+
+  this.usuarioServicio.verMisAlquileres(this.correo).subscribe({
+    next: (data) => {
+      this.alquileresUsuario = data;
+    },
+    error: (err) => {
+      console.error(err);
+      alert("No se pudieron cargar los alquileres.");
+    }
+  });
 }
 
+cancelarAlquiler(idAlquiler: number) {
+  if (!this.correo) {
+    alert("Correo no válido.");
+    return;
+  }
 
+  this.usuarioServicio.cancelarAlquilerVehiculo(idAlquiler, this.correo).subscribe({
+    next: (mensaje) => {
+      alert(mensaje);
+      this.verMisAlquileres(); // refrescar la tabla
+    },
+    error: (err) => {
+      console.error(err);
+      alert(err.error || "No se pudo cancelar el alquiler.");
+    }
+  });
+}
 }

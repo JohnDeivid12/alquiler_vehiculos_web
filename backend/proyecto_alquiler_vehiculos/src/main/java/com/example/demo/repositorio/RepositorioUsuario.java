@@ -10,7 +10,6 @@ import com.example.demo.modelo.Usuario;
 		//RepositorioUsuario
 		Usuario findByCorreo(String correo);
 			    boolean existsByCorreo(String correo);
-
 		
 	}
 

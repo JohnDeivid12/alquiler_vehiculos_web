@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.AlquilerVehiculosApplication;
+import com.example.demo.modelo.Alquiler;
 import com.example.demo.modelo.Usuario;
 import com.example.demo.modelo.Vehiculo;
 import com.example.demo.repositorio.RepositorioUsuario;
@@ -23,7 +24,7 @@ import com.example.demo.servicio.VehiculoServicio;
 
 @RestController
 @RequestMapping("/usuario")
-@CrossOrigin(origins = "http://localhost:4200/")
+@CrossOrigin(origins = "http://localhost:4200")
 public class UsuarioControlador {
 
     @Autowired
@@ -34,6 +35,9 @@ public class UsuarioControlador {
     
     @Autowired
     private AlquilerServicio alquilerServicio;
+    
+    @Autowired
+    private UsuarioServicio usuarioServicio;
 
   //Registro usuario
     @PostMapping("/guardarUsuario")
@@ -73,22 +77,30 @@ public class UsuarioControlador {
         return ResponseEntity.ok(vehiculos);
     }
     
-    //Cancelar alquiler
+    //By JOHN DEIVID buscar alquileres de un usuario por su correo
+    @GetMapping("/verAlquileres")
+    public ResponseEntity<?> verAlquileresPorCorreo(@RequestParam String correo) {
+        try {
+            List<Alquiler> alquileres = usuarioServicio.obtenerAlquileresPorCorreo(correo);
+            return ResponseEntity.ok(alquileres);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("No se encontraron alquileres para el correo: " + correo);
+        }
+    }
+
     @PostMapping("/cancelarAlquiler")
     public ResponseEntity<String> cancelarAlquiler(
             @RequestParam Long idAlquiler,
-            @RequestParam Long idUsuario) {
+            @RequestParam String correo) {
 
-        boolean cancelado = alquilerServicio.cancelarAlquilerPendiente(idAlquiler, idUsuario);
+        boolean cancelado = usuarioServicio.cancelarAlquilerPorCorreo(idAlquiler, correo);
 
         if (cancelado) {
             return ResponseEntity.ok("El alquiler ha sido cancelado correctamente.");
         } else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body("No se pudo cancelar el alquiler. Verifica que el alquiler esté pendiente y sea tuyo.");
+                    .body("No se pudo cancelar el alquiler. Verifica que esté pendiente y sea tuyo.");
         }
     }
-
-    
 }
 

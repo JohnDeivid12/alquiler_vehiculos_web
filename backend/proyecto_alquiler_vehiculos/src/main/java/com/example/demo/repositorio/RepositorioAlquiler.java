@@ -20,6 +20,10 @@ public interface RepositorioAlquiler extends JpaRepository<Alquiler, Long> {
 	
 	Optional<Alquiler> findByVehiculoPlacaAndEstado(String placa, String estado);
 	
+    //By JOHN DEIVID para buscar alquileres de un usuario por su correo
+	List<Alquiler> findByUsuarioCorreo(String correo);
+
+	
 List<Alquiler> findByUsuario(Usuario usuario);
     
     /**

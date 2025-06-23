@@ -99,21 +99,48 @@ public class AlquilerServicio {
 		  return alquilerGuardado;
 }
 	
-	//Servicio utilizado por Usuario para cancelar alquiler
+	//By JOHN DEIVID Servicio utilizado por Usuario para cancelar alquiler
+	/*public boolean cancelarAlquilerPendiente(Long idAlquiler, Long idUsuario) {
+        Optional<Alquiler> alquilerOptional = repositorio.findById(idAlquiler);
+
+        if (alquilerOptional.isPresent()) {
+            Alquiler alquiler = alquilerOptional.get();
+
+            if (alquiler.getUsuario().getIdUsuario().equals(idUsuario)
+                    && "pendiente de entrega".equalsIgnoreCase(alquiler.getEstado())) {
+
+                // Reutilizamos tu método existente
+                return actualizarEstadoAlquiler(idAlquiler, "cancelado");
+            }
+        }
+
+        return false;
+    }*/
+	
 	public boolean cancelarAlquilerPendiente(Long idAlquiler, Long idUsuario) {
 	    Optional<Alquiler> alquilerOptional = repositorio.findById(idAlquiler);
 
 	    if (alquilerOptional.isPresent()) {
 	        Alquiler alquiler = alquilerOptional.get();
 
-	        if (alquiler.getUsuario().getIdUsuario().equals(idUsuario) &&
-	            "pendiente de entrega".equalsIgnoreCase(alquiler.getEstado())) {
+	        if (alquiler.getUsuario().getIdUsuario().equals(idUsuario)
+	                && "pendiente de entrega".equalsIgnoreCase(alquiler.getEstado())) {
 
+	            // Cambiar estado del vehículo a "disponible"
+	            Vehiculo vehiculo = alquiler.getVehiculo();
+	            vehiculo.setEstadoVehiculo("disponible");
+	            repositorioVehiculo.save(vehiculo);
+
+	            // Reutilizar tu método para actualizar el estado del alquiler
 	            return actualizarEstadoAlquiler(idAlquiler, "cancelado");
 	        }
 	    }
+
 	    return false;
 	}
+
+
+
     // Servicio utilizado por Admin para buscar los vwhiculos no entregados
 	public List<Vehiculo> buscarVehiculosPorEstadoAlquiler(String estado) {
 	    return repositorio.findVehiculosByEstadoAlquiler(estado);

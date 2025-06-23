@@ -11,6 +11,7 @@ export class UsuarioService {
   
   private bdURL = "http://localhost:8080/usuario/guardarUsuario";
   private bdURLB = "http://localhost:8080/usuario/buscarVehiculosPorTipoYEstado";
+  private bdURLV = "http://localhost:8080/usuario/verAlquileres";
   private bdURLC = "http://localhost:8080/usuario/cancelarAlquiler";
   private bdURLS = "http://localhost:8080/usuario/iniciarSesion";
   
@@ -36,15 +37,23 @@ export class UsuarioService {
   return this.httpClient.get<Vehiculo[]>(this.bdURLB, { params });
 }
 
-cancelarAlquilerVehiculo(idAlquiler: number, idUsuario: number): Observable<string> {
+//By JOHN DEIVID
+// Obtener alquileres por correo
+verMisAlquileres(correo: string): Observable<any[]> {
+  const params = new HttpParams().set('correo', correo);
+  return this.httpClient.get<any[]>(`${this.bdURLV}`, { params });
+}
+
+
+// Cancelar alquiler por idAlquiler y correo
+cancelarAlquilerVehiculo(idAlquiler: number, correo: string): Observable<string> {
   const params = new HttpParams()
     .set('idAlquiler', idAlquiler)
-    .set('idUsuario', idUsuario);
+    .set('correo', correo);
 
   return this.httpClient.post(`${this.bdURLC}`, null, {
     params,
-    responseType: 'text' 
+    responseType: 'text'
   });
 }
-
 }

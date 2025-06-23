@@ -1,20 +1,44 @@
-<div class="modal" tabindex="-1" id="verVehiculos">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header d-flex justify-content-between align-items-center">
-        <h5 class="modal-title">Escribe el tipo de vehiculo</h5>
-        <button type="button" class="close ml-auto" aria-label="Close" >
-        <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form>
-                <div class="mb-3">
-                  <label  class="form-label">Tipo</label>
-                  <input for="inputIdentificacion" type="text" class="form-control" [(ngModel)]="vehiculo.tipo" name="tipo">
-                  <button type="submit" class="btn btn-primary" (click)="buscarTipoDisponible()"> Buscar</button>  
-                </div>
-        </form>
-      </div>
-    </div>
+<a class="nav-link active" href="/vehiculo">Volver a Seccion Alquilar</a>
+<!-- Buscar alquileres por correo -->
+<div class="mb-3">
+  <label for="correo" class="form-label">Correo del usuario</label>
+  <input type="email" id="correo" class="form-control" [(ngModel)]="correo">
+  <button class="btn btn-primary mt-2" (click)="verMisAlquileres()">Ver mis alquileres</button>
+</div>
+
+<!-- Mostrar tabla de alquileres -->
+<div *ngIf="alquileresUsuario.length > 0" class="table-responsive mt-4">
+  <table class="table table-striped table-bordered align-middle">
+    <thead class="table-dark">
+      <tr>
+        <th>Placa</th>
+        <th>Tipo</th>
+        <th>Color</th>
+        <th>Estado</th>
+        <th>Valor Alquiler</th>
+        <th>Fecha Inicio</th>
+        <th>Fecha Entrega</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let a of alquileresUsuario">
+        <td>{{ a.vehiculo.placa }}</td>
+        <td>{{ a.vehiculo.tipo }}</td>
+        <td>{{ a.vehiculo.color }}</td>
+        <td>{{ a.estado }}</td>
+        <td>${{ a.valorAlquiler | number:'1.0-0' }}</td>
+        <td>{{ a.fechaInicio | date:'yyyy-MM-dd' }}</td>
+        <td>{{ a.fechaEntrega | date:'yyyy-MM-dd' }}</td>
+        <td>
+          <button 
+            class="btn btn-sm btn-danger"
+            (click)="cancelarAlquiler(a.idAlquiler)"
+            [disabled]="a.estado !== 'pendiente de entrega'">
+            Cancelar
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </div>
