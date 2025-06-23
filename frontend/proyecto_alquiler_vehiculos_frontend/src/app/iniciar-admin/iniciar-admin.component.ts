@@ -27,7 +27,7 @@ export class IniciarAdminComponent implements OnInit{
       this.adminService.iniciarSesion(this.admin.usuarioAdmin, this.admin.contrasena_admin).subscribe({        next: (data) => {
           console.log('Sesión de admin iniciada correctamente:', data);
           alert('¡Inicio de sesión de admin exitoso!');
-          this.router.navigate(['/vehiculos']); // o cualquier ruta de administrador
+          this.router.navigate(['/admin']); // o cualquier ruta de administrador
         },
         error: (err) => {
           console.error('Error en inicio de sesión de admin:', err);

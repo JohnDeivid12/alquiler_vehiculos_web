@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.modelo.Alquiler;
@@ -22,6 +23,7 @@ import com.example.demo.servicio.AlquilerServicio;
 public class AlquilerControlador {
 	 @Autowired
 	    private AlquilerServicio servicio;
+	 
 
 	 @PostMapping("/alquilar")
 	    public ResponseEntity<?> alquilarVehiculo(@RequestBody Map<String, Object> solicitudAlquiler) {
@@ -57,5 +59,23 @@ public class AlquilerControlador {
 	            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
 	                    .body("Error interno del servidor: " + e.getMessage());
 	        }
+	        
+	        
 	    }
+	 @PostMapping("/devolucion")
+	 public ResponseEntity<?> registrarDevolucion(@RequestParam Long idAlquiler, 
+	                                              @RequestParam String fechaEntregaReal,
+	                                              @RequestParam Long idAdmin) {
+	     try {
+	         Map<String, Object> respuesta = servicio.procesarEntregaYCalcularCosto(idAlquiler, fechaEntregaReal, idAdmin);
+	         return ResponseEntity.ok(respuesta);
+	     } catch (RuntimeException e) {
+	         return ResponseEntity.badRequest().body("Error: " + e.getMessage());
+	     } catch (Exception e) {
+	         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error interno: " + e.getMessage());
+	     }
+	 }
+
+	 	 
+	 
 }

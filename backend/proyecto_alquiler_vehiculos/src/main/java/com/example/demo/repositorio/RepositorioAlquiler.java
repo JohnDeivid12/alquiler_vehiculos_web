@@ -1,8 +1,11 @@
 package com.example.demo.repositorio;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.example.demo.modelo.Alquiler;
@@ -12,6 +15,12 @@ import com.example.demo.modelo.Vehiculo;
 
 @Repository
 public interface RepositorioAlquiler extends JpaRepository<Alquiler, Long> { 
+	
+	
+	@Query("SELECT a.vehiculo FROM Alquiler a WHERE a.estado = :estado")
+	List<Vehiculo> findVehiculosByEstadoAlquiler(@Param("estado") String estado);
+	
+	Optional<Alquiler> findByVehiculoPlacaAndEstado(String placa, String estado);
 
 	List<Alquiler> findByUsuario(Usuario usuario);
     

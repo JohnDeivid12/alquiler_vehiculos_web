@@ -56,7 +56,7 @@ public class AdminControlador {
 	    }
 
 	//Ver vehiculos con alquiler pendiente 
-		/* @GetMapping("/vehiculosPendientes")
+		 @GetMapping("/vehiculosPendientes")
 		 public ResponseEntity<List<Vehiculo>> vehiculosConAlquilerPendiente() {
 		     List<Vehiculo> vehiculos = adminServicio.obtenerVehiculosConAlquilerPendiente();
 
@@ -66,12 +66,26 @@ public class AdminControlador {
 
 		     return ResponseEntity.ok(vehiculos);
 		 }
+		 
+		//Cambiar estado de alquiler del vehiculo a entregado
+		 @PostMapping("/entregarVehiculo")
+		 public ResponseEntity<String> entregarVehiculo(@RequestParam String placa) {
+		     boolean entregado = adminServicio.cambiarEstadoAlquilerComoAdminPorPlaca(placa);
+
+		     if (entregado) {
+		         return ResponseEntity.ok("El alquiler fue marcado como entregado correctamente.");
+		     } else {
+		         return ResponseEntity.status(HttpStatus.NOT_FOUND)
+		                 .body("No se encontró un alquiler pendiente con la placa proporcionada.");
+		     }
+		 }
 	
-	//@GetMapping("/disponibles")
-    //public List<Admin> obtenerDisponibles() {
-      //  return servicio.obtenerDisponibles();
-    }
-	*/
+		 @GetMapping("/todos-vehiculos")
+		 public List<Vehiculo> obtenerTodos() {
+		     return servicioV.obtenerTodos();
+		 }
+    
+	
 	 @PostMapping("/iniciarSesion")
 	    public ResponseEntity<?> iniciarSesion(@RequestParam String usuarioAdmin, @RequestParam String contrasena_admin) {
 	        Admin a = adminServicio.iniciarSesion(usuarioAdmin, contrasena_admin);

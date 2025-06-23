@@ -1,6 +1,12 @@
 package com.example.demo.servicio;
 
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +18,8 @@ import com.example.demo.modelo.Vehiculo;
 import com.example.demo.repositorio.RepositorioAlquiler;
 import com.example.demo.repositorio.RepositorioUsuario;
 import com.example.demo.repositorio.RepositorioVehiculo;
+
+import jakarta.transaction.Transactional;
 
 
 @Service
@@ -28,7 +36,9 @@ public class AlquilerServicio {
 	    
 	    @Autowired
 	    private VehiculoServicio vehiculoServicio;
-	
+	    
+	    @Autowired
+		private GestionAlquilerServicio gestionAlquilerServicio;
 	
 	
 	  public Alquiler crearAlquiler(String correo, String placaVehiculo, 
@@ -88,5 +98,77 @@ public class AlquilerServicio {
 
 		  return alquilerGuardado;
 }
+	  @Transactional
+		public Map<String, Object> procesarEntregaYCalcularCosto(Long idAlquiler, String fechaEntregaRealStr, Long idAdmin) throws ParseException {
+		    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		    Date fechaEntregaReal = sdf.parse(fechaEntregaRealStr);
 
-}
+		    Optional<Alquiler> alquilerOpt = repositorio.findById(idAlquiler);
+		    if (!alquilerOpt.isPresent()) {
+		        throw new RuntimeException("No se encontró el alquiler con ID: " + idAlquiler);
+		    }
+
+		    Alquiler alquiler = alquilerOpt.get();
+		    alquiler.setFecha_entrega_real(fechaEntregaReal);
+
+		    Date fechaPactada = alquiler.getFecha_entrega();
+		    long diffDias = (fechaEntregaReal.getTime() - fechaPactada.getTime()) / (1000 * 60 * 60 * 24);
+
+		    double costoExtra = 0.0;
+		    if (diffDias > 0) {
+		        double valorDiario = alquiler.getVehiculo().getValor_alquiler_vehiculo();
+		        costoExtra = valorDiario * diffDias;
+		    }
+
+		    alquiler.setCosto_extra(costoExtra);
+		    alquiler.setValor_total_alquiler(alquiler.getValor_alquiler() + costoExtra);
+		    alquiler.setEstado("devuelto");
+
+		    repositorio.save(alquiler);
+		    vehiculoServicio.actualizarEstadoVehiculo(alquiler.getVehiculo().getPlaca(), "Disponible");
+
+		    // Registrar la gestión del alquiler
+		    gestionAlquilerServicio.registrarGestion(idAdmin, idAlquiler, fechaEntregaReal);
+
+		    // Armar la respuesta
+		    Map<String, Object> respuesta = new HashMap<>();
+		    respuesta.put("id_Alquiler", alquiler.getId_alquiler());
+		    respuesta.put("vehiculo", alquiler.getVehiculo());
+		    respuesta.put("costoExtra", costoExtra);
+		    respuesta.put("valorAlquiler", alquiler.getValor_alquiler());
+		    respuesta.put("valorTotalAlquiler", alquiler.getValor_total_alquiler());
+		    respuesta.put("fechaEntregaReal", fechaEntregaReal);
+
+		    return respuesta;
+		}
+	  
+	// Servicio utilizado por Admin para buscar los vwhiculos no entregados
+		public List<Vehiculo> buscarVehiculosPorEstadoAlquiler(String estado) {
+		    return repositorio.findVehiculosByEstadoAlquiler(estado);
+		}
+		
+		
+		//Actualizar estado de alquiler
+		public boolean actualizarEstadoAlquiler(Long idAlquiler, String nuevoEstado) {
+		    Optional<Alquiler> alquilerOptional = repositorio.findById(idAlquiler);
+
+		    if (alquilerOptional.isPresent()) {
+		        Alquiler alquiler = alquilerOptional.get();
+		        alquiler.setEstado(nuevoEstado);
+		        repositorio.save(alquiler);
+		        return true;
+		    } else {
+		        return false;
+		    }
+
+	    }
+		
+		public Optional<Alquiler> buscarAlquilerPendientePorPlaca(String placa) {
+		    return repositorio.findByVehiculoPlacaAndEstado(placa, "pendiente de entrega");
+		}
+
+
+
+	}
+
+

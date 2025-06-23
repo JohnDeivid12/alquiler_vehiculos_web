@@ -20,17 +20,17 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let item of vehiculosDisponibles">
-          <td>{{item.placa}}</td>
-          <td>{{item.tipo}}</td>
-          <td>{{item.color}}</td>
-          <td>${{item.valorAlquilerVehiculo | number:'1.0-0'}}</td>
+        <tr *ngFor="let v of vehiculosDisponibles">
+          <td>{{v.placa}}</td>
+          <td>{{v.tipo}}</td>
+          <td>{{v.color}}</td>
+          <td>${{v.valorAlquilerVehiculo }}</td>
           <td>
-            <span class="badge bg-success" *ngIf="item.estadoVehiculo === 'disponible'">Disponible</span>
-            <span class="badge bg-secondary" *ngIf="item.estadoVehiculo !== 'disponible'">{{item.estadoVehiculo}}</span>
+            <span class="badge bg-success" *ngIf="v.estadoVehiculo === 'Disponible'">Disponible</span>
+            <span class="badge bg-secondary" *ngIf="v.estadoVehiculo !== 'Disponible'">{{v.estadoVehiculo}}</span>
           </td>
           <td>
-              <button class="btn btn-sm btn-primary" (click)="mostrarFormularioAlquiler(item)">Alquilar</button>
+              <button class="btn btn-sm btn-primary" (click)="mostrarFormularioAlquiler(v)">Alquilar</button>
           </td>
         </tr>
       </tbody>

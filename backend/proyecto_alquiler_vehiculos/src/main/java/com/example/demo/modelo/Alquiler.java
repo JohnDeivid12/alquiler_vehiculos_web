@@ -21,7 +21,7 @@ public class Alquiler {
     @Column(name = "id_alquiler")
     private Long id_alquiler;
 	
-	@OneToOne()
+	@ManyToOne()
 	   @JoinColumn(name = "placa", referencedColumnName = "placa")
 	    private Vehiculo vehiculo;
 	

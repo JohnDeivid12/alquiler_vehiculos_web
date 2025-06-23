@@ -40,6 +40,9 @@ public class VehiculoServicio {
         return repositorio.findByEstadoVehiculo(estadoVehiculo);
 	}
 	
+	public List<Vehiculo> obtenerTodos() {
+	    return repositorio.findAll();
+	}
 	
 	
 }

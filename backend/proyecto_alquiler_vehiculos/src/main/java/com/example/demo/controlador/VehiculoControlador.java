@@ -48,7 +48,7 @@ public class VehiculoControlador {
 	 
 	 @GetMapping("/buscarDisponibles")
 	    public List<Vehiculo> buscarDisponibles() {
-	        return servicio.buscarPorEstado("disponible");
+	        return servicio.buscarPorEstado("Disponible");
 	    }
 	 
 	 
