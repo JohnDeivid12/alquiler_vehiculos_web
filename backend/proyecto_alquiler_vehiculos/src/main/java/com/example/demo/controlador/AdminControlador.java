@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.modelo.Admin;
 import com.example.demo.modelo.Vehiculo;
 import com.example.demo.servicio.AdminServicio;
+import com.example.demo.servicio.VehiculoServicio;
 
 @RestController
 @RequestMapping("/admin")
@@ -24,6 +25,10 @@ public class AdminControlador {
 	
 	 @Autowired
 	    private AdminServicio adminServicio;
+	 
+	 //BALLEST
+	 @Autowired
+	    private VehiculoServicio servicioV;
 	 
 	 //Guardar Admin
 	 @PostMapping("/guardarAdmin")
@@ -42,6 +47,12 @@ public class AdminControlador {
 	                    .body("Credenciales inválidas");
 	        	}
 	    }
+	 
+	//BALLEST
+	 @GetMapping("/todos-vehiculos")
+	 public List<Vehiculo> obtenerTodos() {
+	     return servicioV.obtenerTodos();
+	 }
 	 
 	 //Ver vehiculos con alquiler pendiente 
 	 @GetMapping("/vehiculosPendientes")

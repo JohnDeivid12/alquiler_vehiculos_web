@@ -6,6 +6,8 @@
     <select class="form-select" [(ngModel)]="opcionSeleccionada" (change)="verOpciones()">
       <option value="">-- Selecciona una opción --</option>
       <option value="verPendientes">Ver vehículos alquilados pendientes de entrega</option>
+      <option value="verTodos">Ver todos los vehículos</option>
+      <option value="verDisponibles">Ver vehículos disponibles</option>
       <option value="calcularCostoExtra">Calcular costo extra por retraso</option>
 
     </select>
@@ -98,6 +100,83 @@
     </tbody>
   </table>
 </div>
+</div>
+
+<!-- Mostrar tabla de vehículos disponibles BALLEST -->
+<div *ngIf="opcionSeleccionada === 'verDisponibles'" class="mt-4">
+  <h5 class="mb-3 text-success">Vehículos disponibles</h5>
+
+  <div *ngIf="vehiculosDisponibles && vehiculosDisponibles.length === 0" class="alert alert-warning">
+    No hay vehículos disponibles actualmente.
+  </div>
+
+  <div *ngIf="vehiculosDisponibles && vehiculosDisponibles.length > 0" class="table-responsive">
+    <table class="table table-striped table-hover table-bordered align-middle shadow-sm rounded-3">
+      <thead class="table-success">
+        <tr>
+          <th>Placa</th>
+          <th>Tipo</th>
+          <th>Color</th>
+          <th>Valor alquiler</th>
+          <th>Estado</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let v of vehiculosDisponibles">
+          <td>{{ v.placa }}</td>
+          <td class="text-capitalize">{{ v.tipo }}</td>
+          <td class="text-capitalize">{{ v.color }}</td>
+          <td class="text-end">${{ v.valorAlquilerVehiculo | number:'1.0-0' }}</td>
+          <td>
+            <span class="badge bg-success" *ngIf="v.estadoVehiculo === 'Disponible'">Disponible</span>
+            <span class="badge bg-secondary" *ngIf="v.estadoVehiculo !== 'Disponible'">{{v.estadoVehiculo}}</span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
 
 
+<!-- BALLEST Mostrar tabla de todos los vehículos -->
+<div *ngIf="opcionSeleccionada === 'verTodos'" class="mt-4">
+  <h5 class="mb-3 text-primary">Todos los vehículos registrados</h5>
+
+  <div class="mb-3">
+    <label for="filtroTipo" class="form-label">Filtrar por tipo:</label>
+    <select id="filtroTipo" class="form-select w-auto d-inline-block ms-2"
+            [(ngModel)]="tipoSeleccionado" (change)="filtrarPorTipo()">
+      <option value="">Todos</option>
+      <option *ngFor="let tipo of tiposVehiculo" [value]="tipo">{{ tipo }}</option>
+    </select>
+  </div>
+
+  <div *ngIf="vehiculosFiltrados && vehiculosFiltrados.length === 0" class="alert alert-warning">
+    No hay vehículos que coincidan con el filtro.
+  </div>
+
+  <div *ngIf="vehiculosFiltrados && vehiculosFiltrados.length > 0" class="table-responsive">
+    <table class="table table-striped table-hover table-bordered align-middle shadow-sm rounded-3">
+      <thead class="table-info">
+        <tr>
+          <th>Placa</th>
+          <th>Tipo</th>
+          <th>Color</th>
+          <th>Valor alquiler</th>
+          <th>Estado</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let v of vehiculosFiltrados">
+          <td>{{ v.placa }}</td>
+          <td>{{ v.tipo }}</td>
+          <td>{{ v.color }}</td>
+          <td class="text-end">${{ v.valorAlquilerVehiculo | number:'1.0-0' }}</td>
+          <td>
+            <span class="badge bg-secondary">{{ v.estadoVehiculo }}</span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>

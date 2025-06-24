@@ -11,6 +11,7 @@ import { Vehiculo } from '../entities/vehiculo';
 export class AdminService { 
   private bdURLS = "http://localhost:8080/admin/iniciarSesion";
   private bdURLP = "http://localhost:8080/admin/vehiculosPendientes";
+  private bdURLR = "http://localhost:8080/vehiculo/buscarDisponibles";      
   private bdURLE = "http://localhost:8080/admin/entregarVehiculo";
   private bdURLD = "http://localhost:8080/alquiler/devolucion";
   constructor(private httpClient: HttpClient) { }
@@ -53,5 +54,15 @@ costoExtra(idAlquiler: number, fechaEntregaReal: string, idAdmin: number): Obser
     }
   });
 }
+
+//BALLEST
+obtenerVehiculosDisponibles(): Observable<Vehiculo[]> {
+  return this.httpClient.get<Vehiculo[]>(`${this.bdURLR}`);
+}
+
+obtenerTodosVehiculos(): Observable<Vehiculo[]> {
+  return this.httpClient.get<Vehiculo[]>('http://localhost:8080/admin/todos-vehiculos');
+}
+
 }
 

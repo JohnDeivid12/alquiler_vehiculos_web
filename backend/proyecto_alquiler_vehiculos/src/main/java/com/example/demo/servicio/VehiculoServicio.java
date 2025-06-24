@@ -20,6 +20,11 @@ public class VehiculoServicio {
         return repositorio.save(vehiculo);
     }	
 	
+	//BALLEST
+	public List<Vehiculo> obtenerTodos() {
+	    return repositorio.findAll();
+	}
+	
 	//Buscar vehiculos disponibles
 	public List<Vehiculo> buscarPorEstado(String estadoVehiculo) {
         return repositorio.findByEstadoVehiculo(estadoVehiculo);

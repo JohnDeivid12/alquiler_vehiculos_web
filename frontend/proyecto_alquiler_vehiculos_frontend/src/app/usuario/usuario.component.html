@@ -1,9 +1,15 @@
-<a class="nav-link active" href="/vehiculo">Volver a Seccion Alquilar</a>
-<!-- Buscar alquileres por correo -->
-<div class="mb-3">
-  <label for="correo" class="form-label">Correo del usuario</label>
-  <input type="email" id="correo" class="form-control" [(ngModel)]="correo">
-  <button class="btn btn-primary mt-2" (click)="verMisAlquileres()">Ver mis alquileres</button>
+<hr>
+
+<!-- Botón centrado -->
+<div class="mb-4 text-center">
+  <a class="btn btn-sm btn-primary" href="/vehiculo">Volver a Sección Alquilar</a>
+</div>
+
+<!-- Formulario centrado -->
+<div class="mb-3 col-md-3 mx-auto text-center">
+  <label for="correo" class="fw-bold fw-semibold">Escribe tu Correo Electrónico</label>
+  <input type="email" id="correo" class="form-control mb-2" [(ngModel)]="correo">
+  <button class="btn btn-success" (click)="verMisAlquileres()">Ver mis alquileres</button>
 </div>
 
 <!-- Mostrar tabla de alquileres -->

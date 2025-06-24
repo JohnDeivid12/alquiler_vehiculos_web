@@ -21,7 +21,13 @@ export class AdminComponent implements OnInit {
   idAdminConsulta: number = 0;
   fechaEntregaReal: string = '';
   resultadoCosto: any = null;
+  vehiculosDisponibles: Vehiculo[] = [];
 
+  //BALLEST
+  vehiculosFiltrados: Vehiculo[] = [];
+  tiposVehiculo: string[] = []; // lista de tipos únicos
+  tipoSeleccionado: string = '';
+  todosVehiculos: Vehiculo[] = [];
 
   constructor(private adminService: AdminService) {}
 
@@ -43,8 +49,35 @@ export class AdminComponent implements OnInit {
           console.error('Error al obtener vehículos pendientes', err);
         }
       });
-    }
+    } 
+    //BALLEST
+    else if (this.opcionSeleccionada === 'verDisponibles') {
+    this.adminService.obtenerVehiculosDisponibles().subscribe({
+      next: (data) => {
+        this.vehiculosDisponibles = data ?? [];
+        console.log('Vehículos disponibles:', this.vehiculosDisponibles);
+        if (this.vehiculosDisponibles.length === 0) {
+          alert('No hay vehículos disponibles.');
+        }
+      },
+      error: (err) => {
+        console.error('Error al obtener vehículos disponibles', err);
+      }
+    });
   }
+   else if (this.opcionSeleccionada === 'verTodos') {
+  this.adminService.obtenerTodosVehiculos().subscribe({
+    next: (data) => {
+      this.todosVehiculos = data ?? [];
+      this.vehiculosFiltrados = [...this.todosVehiculos]; // por defecto todos
+      this.extraerTiposUnicos(); // genera lista de tipos
+    },
+    error: (err) => {
+      console.error('Error al obtener todos los vehículos', err);
+    }
+  });
+  }
+}
 
   marcarComoEntregado(placa: string) {
     if (!placa) return;
@@ -95,6 +128,23 @@ calcularCostoExtra() {
       this.resultadoCosto = null;
     }
   });
+}
+
+//BALLEST
+filtrarPorTipo() {
+  if (!this.tipoSeleccionado) {
+    this.vehiculosFiltrados = [...this.todosVehiculos];
+  } else {
+    this.vehiculosFiltrados = this.todosVehiculos.filter(
+      v => v.tipo.toLowerCase() === this.tipoSeleccionado.toLowerCase()
+    );
+  }
+}
+
+extraerTiposUnicos() {
+  const tiposSet = new Set<string>();
+  this.todosVehiculos.forEach(v => tiposSet.add(v.tipo));
+  this.tiposVehiculo = Array.from(tiposSet);
 }
 
 }
